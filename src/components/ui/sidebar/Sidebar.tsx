@@ -22,7 +22,7 @@ const navItems = [
 
   {
     name: "Ordenes",
-    href: "/",
+    href: "/orders",
     icon: <IoTicketOutline size={30} />,
   },
 
