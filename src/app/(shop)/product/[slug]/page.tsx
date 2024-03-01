@@ -1,13 +1,53 @@
+export const revalidate = 60400; // 1 week revalidacion de data en cache
+
+import { getProductBySlug } from "@/actions/product/get-product-by-slug";
 import QuantitySelector from "@/components/product/quantity-selector/QuantitySelector";
 import SizeSelector from "@/components/product/size-selector/SizeSelector";
 import ProductSlideshowMobile from "@/components/product/slideshow/ProductSlideshoMobile";
 import ProductSlideshow from "@/components/product/slideshow/ProductSlideshow";
-import { titleFont } from "@/config/fonts";
-import { initialData } from "@/seed/seed";
+import StockLabel from "@/components/product/stock-label/StockLabel";
+import { inter, titleFont } from "@/config/fonts";
+import { Metadata, ResolvingMetadata } from "next";
+// import { initialData } from "@/seed/seed";
 import { notFound } from "next/navigation";
+import { metadata } from "../../../layout";
 
-export default function SimpleProduct({ params: { slug } }: { params: { slug: string } }) {
-  const product = initialData.products.find((p) => p.slug === slug);
+interface Props {
+  params: {
+    slug: string;
+  };
+}
+
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  // read route params
+  const { slug } = params;
+
+  // fetch data
+  const product = await getProductBySlug(slug);
+
+  // optionally access and extend (rather than replace) parent metadata
+  // const previousImages = (await parent).openGraph?.images || [];
+
+  const title = product?.title || "Product not found";
+  const description = product?.description;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: [`/products/${product?.images[1]}`],
+    },
+  };
+}
+
+export default async function SimpleProduct({ params }: Props) {
+  const { slug } = params;
+  const product = await getProductBySlug(slug);
 
   if (!product) {
     return notFound();
@@ -20,7 +60,7 @@ export default function SimpleProduct({ params: { slug } }: { params: { slug: st
         <ProductSlideshowMobile
           title={product.title}
           images={product.images}
-          className="block  md:hidden"
+          className="block md:hidden"
         />
 
         {/* Desktop Slideshow */}
@@ -33,6 +73,7 @@ export default function SimpleProduct({ params: { slug } }: { params: { slug: st
 
       {/* Details */}
       <div className="col-span-1 px-5">
+        <StockLabel slug={slug} />
         <h1 className={`${titleFont.className} antialiased font-bold text-xl`}> {product.title}</h1>
         <p className="text-lg mb-5">{product.price}$</p>
 
