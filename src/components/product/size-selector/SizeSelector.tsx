@@ -4,9 +4,11 @@ import clsx from "clsx";
 export default function SizeSelector({
   selectedSize,
   availableSizes,
+  onSizeChanged,
 }: {
-  selectedSize: Size;
+  selectedSize?: Size;
   availableSizes: Size[]; //['XS', 'S', 'M', 'L', 'XL']
+  onSizeChanged: (size: Size) => void;
 }) {
   return (
     <div className="my-5 ">
@@ -14,6 +16,7 @@ export default function SizeSelector({
       <div className="flex">
         {availableSizes.map((size) => (
           <button
+            onClick={() => onSizeChanged(size)}
             key={size}
             className={clsx("mx-2 hover:underline font-semibold text-lg", {
               underline: size === selectedSize,
