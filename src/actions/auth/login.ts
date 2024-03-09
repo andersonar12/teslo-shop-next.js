@@ -8,18 +8,36 @@ import { AuthError } from "next-auth";
 export async function authenticate(prevState: string | undefined, formData: FormData) {
   try {
     // await delay(3);
-    // console.log(Object.fromEntries(formData));
-    await signIn("credentials", Object.fromEntries(formData));
+
+    await signIn("credentials", {
+      ...Object.fromEntries(formData),
+      redirect: false,
+    });
+
+    return "Success";
   } catch (error) {
-    // if (error instanceof AuthError) {
-    //   switch (error.type) {
-    //     case "CredentialsSignin":
-    //       return "Invalid credentials.";
-    //     default:
-    //       return "Something went wrong.";
-    //   }
-    // }
-    // throw ;
-    return "Credentials Signin";
+    if ((error as AuthError).type === "CredentialsSignin") {
+      return "CredentialsSignin";
+    }
+
+    return "UnknownError";
+  }
+}
+
+export async function login(email: string, password: string) {
+  try {
+    await signIn("credentials", {
+      email,
+      password,
+    });
+
+    return {
+      ok: true,
+    };
+  } catch (error) {
+    return {
+      ok: false,
+      message: "No se pudo iniciar sesion",
+    };
   }
 }

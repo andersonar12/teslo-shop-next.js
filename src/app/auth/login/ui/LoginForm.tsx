@@ -2,12 +2,23 @@
 import { authenticate } from "@/actions/auth/login";
 import clsx from "clsx";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+// import { redirect } from "next/navigation";
+import { useEffect } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import { IoInformationOutline } from "react-icons/io5";
 
 export default function LoginForm() {
   const [state, dispatch] = useFormState(authenticate, undefined);
+  const router = useRouter();
   console.log({ state });
+
+  useEffect(() => {
+    if (state == "Success") {
+      window.location.replace("/");
+    }
+  }, [state]);
+
   return (
     <form action={dispatch} className="flex flex-col w-full">
       <label htmlFor="email">Correo electrónico</label>
@@ -20,7 +31,7 @@ export default function LoginForm() {
         type="password"
       />
       <div className="flex h-8 items-end space-x-1" aria-live="polite" aria-atomic="true">
-        {state == "Credentials Signin" && (
+        {state == "CredentialsSignin" && (
           <div className="flex items-center justify-center">
             <IoInformationOutline className="h-5 w-5 text-red-500" />
             <p className="text-sm text-red-500">Credenciales Invalidas</p>
