@@ -1,8 +1,8 @@
-import Title from "@/components/ui/title/Title";
 import Link from "next/link";
-import { initialData } from "@/seed/seed";
 import Image from "next/image";
-import QuantitySelector from "@/components/product/quantity-selector/QuantitySelector";
+import { initialData } from "@/seed/seed";
+import Title from "@/components/ui/title/Title";
+
 const productsInCart = [initialData.products[0], initialData.products[1], initialData.products[2]];
 
 export default function CheckoutPage() {
@@ -78,6 +78,7 @@ export default function CheckoutPage() {
                   </span>
                 </span>
               </div>
+
               <Link className="flex btn-primary justify-center" href={"/orders/123"}>
                 Colocar orden
               </Link>

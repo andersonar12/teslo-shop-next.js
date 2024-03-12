@@ -15,32 +15,6 @@ import clsx from "clsx";
 import { logout } from "@/actions/auth/logout";
 import { useSession } from "next-auth/react";
 
-// const navItems = [
-//   {
-//     name: "Perfil",
-//     href: "/profile",
-//     icon: <IoPersonOutline size={30} />,
-//   },
-
-//   {
-//     name: "Ordenes",
-//     href: "/orders",
-//     icon: <IoTicketOutline size={30} />,
-//   },
-
-//   {
-//     name: "Ingresar",
-//     href: "/auth/login",
-//     icon: <IoLogInOutline size={30} />,
-//   },
-
-//   {
-//     name: "Salir",
-//     href: "/",
-//     icon: <IoLogOutOutline size={30} />,
-//   },
-// ];
-
 const navItems = [
   {
     name: "Productos",
@@ -68,7 +42,7 @@ export default function Sidebar() {
   const isAuthenticated = !!session?.user;
   const isAdmin = session?.user.role === "admin";
 
-  console.log({ isAuthenticated, isAdmin, session });
+  // console.log({ isAuthenticated, isAdmin, session });
   return (
     <div>
       {isSideMenuOpen && (
