@@ -13,7 +13,7 @@ export const authConfig: NextAuthConfig = {
   callbacks: {
     jwt({ token, user }) {
       //el {user} viene del authorize que viene siendo el  "rest"
-      console.log({ token, user });
+      // console.log({ token, user });
       if (user) {
         token.data = user;
       }

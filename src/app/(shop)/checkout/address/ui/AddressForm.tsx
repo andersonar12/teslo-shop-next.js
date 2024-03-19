@@ -54,8 +54,8 @@ export default function AddressForm({ countries, userStoreAddress = {} }: Props)
   const onSubmit = async (data: FormInputs) => {
     console.log(data);
 
-    setAddress(data);
     const { rememberAddress, ...rest } = data;
+    setAddress(rest);
 
     if (rememberAddress) {
       //Server action
