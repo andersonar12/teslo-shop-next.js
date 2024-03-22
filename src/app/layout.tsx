@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { inter } from "@/config/fonts";
 
 import "./globals.css";
-import Provider from "@/components/provider/Provider";
+import Provider from "@/components/providers/Providers";
 
 export const metadata: Metadata = {
   title: { template: "%s - Teslo | Shop", default: "Home - Teslo | Shop" },

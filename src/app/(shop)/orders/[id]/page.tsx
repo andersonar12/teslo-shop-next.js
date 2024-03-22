@@ -1,15 +1,13 @@
-import Link from "next/link";
 import Image from "next/image";
 import clsx from "clsx";
 import Title from "@/components/ui/title/Title";
-import { initialData } from "@/seed/seed";
-// import QuantitySelector from "@/components/product/quantity-selector/QuantitySelector";
 import { IoCardOutline } from "react-icons/io5";
 import { getOrderById } from "@/actions/order/get-order-by-id";
 import { redirect } from "next/navigation";
 import { currencyFormat } from "../../../../utils/currencyFormat";
+import PayPalButton from "../../../../components/paypal/PayPalButton";
+import OrderStatus from "@/components/orders/OrderStatus";
 
-// const productsInCart = [initialData.products[0], initialData.products[1], initialData.products[2]];
 interface Props {
   params: {
     id: string;
@@ -17,7 +15,7 @@ interface Props {
 }
 
 export default async function OrdersByIdPage({ params: { id } }: Props) {
-  console.log(id);
+  // console.log(id);
   //Llamar el server action
   const { ok, order } = await getOrderById(id);
 
@@ -34,18 +32,7 @@ export default async function OrdersByIdPage({ params: { id } }: Props) {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
           {/* Carrito */}
           <div className="flex flex-col mt-5">
-            <div
-              className={clsx(
-                "flex items-center rounded-lg py-2 px-3.5 text-xs font-bold text-white mb-5",
-                {
-                  "bg-red-500": !order!.isPaid,
-                  "bg-green-700": order!.isPaid,
-                }
-              )}
-            >
-              <IoCardOutline size={20} className="mr-2" />
-              <span className="mx-2">{order!.isPaid ? "Pagada" : "No Pagada"}</span>
-            </div>
+            <OrderStatus isPaid={order!.isPaid} />
 
             {/* Items */}
             {order!.OrderItem.map((item) => (
@@ -107,18 +94,11 @@ export default async function OrdersByIdPage({ params: { id } }: Props) {
             </div>
 
             <div className="mt-5 mb-2 w-full">
-              <div
-                className={clsx(
-                  "flex items-center rounded-lg py-2 px-3.5 text-xs font-bold text-white mb-5",
-                  {
-                    "bg-red-500": !order!.isPaid,
-                    "bg-green-700": order!.isPaid,
-                  }
-                )}
-              >
-                <IoCardOutline size={20} className="mr-2" />
-                <span className="mx-2">{order!.isPaid ? "Pagada" : "No Pagada"}</span>
-              </div>
+              {order!.isPaid ? (
+                <OrderStatus isPaid={order!.isPaid} />
+              ) : (
+                <PayPalButton orderId={order!.id} amount={order!.total} />
+              )}
             </div>
           </div>
         </div>
