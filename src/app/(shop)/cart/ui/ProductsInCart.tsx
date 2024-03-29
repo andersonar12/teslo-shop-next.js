@@ -4,6 +4,7 @@ import { useCartStore } from "@/store/cart/cart-store";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import ProductImage from "@/components/product/product-image/ProductImage";
 
 export default function ProductsInCart() {
   const [loaded, setLoaded] = useState(false);
@@ -23,8 +24,8 @@ export default function ProductsInCart() {
     <>
       {productsInCart.map((product) => (
         <div key={product.slug + product.size} className="flex mb-5">
-          <Image
-            src={`/products/${product.image}`}
+          <ProductImage
+            src={product.image}
             alt={product.title}
             width={100}
             height={100}

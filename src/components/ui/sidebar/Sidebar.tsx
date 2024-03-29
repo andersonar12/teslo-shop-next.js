@@ -18,17 +18,17 @@ import { useSession } from "next-auth/react";
 const navItems = [
   {
     name: "Productos",
-    href: "/",
+    href: "/admin/products",
     icon: <IoShirtOutline size={30} />,
   },
   {
     name: "Ordenes",
-    href: "/",
+    href: "/admin/orders",
     icon: <IoTicketOutline size={30} />,
   },
   {
     name: "Usuarios",
-    href: "/",
+    href: "/admin/users",
     icon: <IoPeopleOutline size={30} />,
   },
 ];

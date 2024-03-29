@@ -14,6 +14,7 @@ import "./slideshow.css";
 
 // import required modules
 import { Autoplay, FreeMode, Navigation, Thumbs } from "swiper/modules";
+import ProductImage from "../product-image/ProductImage";
 
 export default function ProductSlideshow({
   images,
@@ -43,8 +44,8 @@ export default function ProductSlideshow({
       >
         {images.map((image) => (
           <SwiperSlide key={image}>
-            <Image
-              src={`/products/${image}`}
+            <ProductImage
+              src={image}
               alt={title}
               className="rounded-lg object-fill"
               width={1024}
@@ -64,8 +65,8 @@ export default function ProductSlideshow({
       >
         {images.map((image) => (
           <SwiperSlide key={image}>
-            <Image
-              src={`/products/${image}`}
+            <ProductImage
+              src={image}
               alt={title}
               className="rounded-lg object-fill"
               width={300}

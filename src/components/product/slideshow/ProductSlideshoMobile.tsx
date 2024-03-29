@@ -14,6 +14,7 @@ import "./slideshow.css";
 
 // import required modules
 import { Autoplay, FreeMode, Navigation, Pagination } from "swiper/modules";
+import ProductImage from "../product-image/ProductImage";
 
 export default function ProductSlideshowMobile({
   images,
@@ -36,8 +37,8 @@ export default function ProductSlideshowMobile({
       >
         {images.map((image) => (
           <SwiperSlide key={image}>
-            <Image
-              src={`/products/${image}`}
+            <ProductImage
+              src={image}
               alt={title}
               className="object-fill"
               width={600}
