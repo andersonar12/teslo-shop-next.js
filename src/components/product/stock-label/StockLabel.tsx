@@ -14,7 +14,7 @@ export default function StockLabel({ slug }: { slug: string }) {
       setIsLoading(false);
     }
     getStock();
-  }, []);
+  }, [slug]);
 
   return (
     <>
