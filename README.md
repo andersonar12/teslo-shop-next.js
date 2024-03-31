@@ -26,4 +26,3 @@
 6. Limpiar el locarlStorage del navegador
 7. Correr el proyecto `npm run dev`
 
-## Correr en Prod
